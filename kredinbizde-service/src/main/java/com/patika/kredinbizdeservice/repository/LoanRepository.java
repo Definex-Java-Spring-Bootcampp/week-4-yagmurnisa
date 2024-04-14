@@ -11,7 +11,7 @@ import com.patika.kredinbizdeservice.model.Loan;
 @Repository
 public interface LoanRepository extends JpaRepository<Loan, Long> {
 
-	List<Loan> findByBankName(String bankName);
+	List<Loan> findByBankId(Long bankId);
 	
 	
 }

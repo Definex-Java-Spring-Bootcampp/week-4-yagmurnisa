@@ -10,7 +10,7 @@ import com.patika.kredinbizdeservice.converter.ApplicationConverter;
 import com.patika.kredinbizdeservice.exceptions.ExceptionMessages;
 import com.patika.kredinbizdeservice.exceptions.KredinbizdeException;
 import com.patika.kredinbizdeservice.model.Bank;
-import com.patika.kredinbizdeservice.repository.ApplicationRepository;
+import com.patika.kredinbizdeservice.repository.LoanApplicationRepository;
 import com.patika.kredinbizdeservice.repository.BankRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -26,12 +26,12 @@ public class BankService {
 	}
 	public Bank getById(Long id) {
 		Optional<Bank> foundBank = bankRepository.findById(id);
-		Bank bank = foundBank.orElseThrow(() -> new KredinbizdeException(ExceptionMessages.USER_NOT_FOUND));
+		Bank bank = foundBank.orElseThrow(() -> new KredinbizdeException(ExceptionMessages.BANK_NOT_FOUND));
 		return bank;
 	}
 	public Bank getByName(String name) {
 		Optional<Bank> foundBank = bankRepository.findByName(name);
-		Bank bank = foundBank.orElseThrow(() -> new KredinbizdeException(ExceptionMessages.USER_NOT_FOUND));
+		Bank bank = foundBank.orElseThrow(() -> new KredinbizdeException(ExceptionMessages.BANK_NOT_FOUND));
 		return bank;
 	}
 }

@@ -22,16 +22,16 @@ import com.patika.kredinbizdeservice.exceptions.ExceptionMessages;
 import com.patika.kredinbizdeservice.exceptions.KredinbizdeException;
 import com.patika.kredinbizdeservice.model.LoanApplication;
 import com.patika.kredinbizdeservice.model.User;
-import com.patika.kredinbizdeservice.repository.ApplicationRepository;
+import com.patika.kredinbizdeservice.repository.LoanApplicationRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class ApplicationServiceTest {
-	/*
+	
 	@InjectMocks
 	ApplicationService applicationService;
 	
 	@Mock
-	ApplicationRepository applicationRepository;
+	LoanApplicationRepository applicationRepository;
 	
 	@Mock 
 	UserService userService;
@@ -46,11 +46,11 @@ public class ApplicationServiceTest {
 	public void should_create_application_successfully() {
 		//given
 		Mockito.when(userService.getByEmail(prepareUser().getEmail())).thenReturn(prepareUser());
-		Mockito.when(applicationConverter.toApplication(Mockito.any(LoanApplicationRequest.class), Mockito.any(User.class))).thenReturn(prepareApplication());
+		Mockito.when(applicationConverter.toLoanApplication(Mockito.any(LoanApplicationRequest.class), Mockito.any(User.class))).thenReturn(prepareApplication());
 		Mockito.when(applicationRepository.save(Mockito.any(LoanApplication.class))).thenReturn(prepareApplication());
-		Mockito.when(akbankServiceClient.createApplication(null)).thenReturn(prepareApplicationResponse());
+		Mockito.when(akbankServiceClient.createLoanApplication(null)).thenReturn(prepareApplicationResponse());
 		//when
-		LoanApplication application = applicationService.createApplication(prepareApplicationRequest());
+		LoanApplication application = applicationService.createLoanApplication(prepareApplicationRequest());
 		//then
 		assertThat(application).isNotNull();
 		assertThat(application.getId()).isEqualTo(prepareApplication().getId());
@@ -66,7 +66,7 @@ public class ApplicationServiceTest {
 	@Test
 	public void should_throw_kredinbizdeException_whenApplicationNotCreated() {
 		
-		Throwable throwable = catchThrowable(() -> applicationService.createApplication(prepareApplicationRequest()));
+		Throwable throwable = catchThrowable(() -> applicationService.createLoanApplication(prepareApplicationRequest()));
 		
 		assertThat(throwable).isInstanceOf(KredinbizdeException.class);
         assertThat(throwable.getMessage()).isEqualTo(ExceptionMessages.APPLICATON_CREATION_ERROR);
@@ -77,7 +77,7 @@ public class ApplicationServiceTest {
 		
 		Mockito.when(applicationRepository.findById(prepareApplication().getId())).thenReturn(Optional.of(prepareApplication()));
 		
-		LoanApplication application = applicationService.getById(prepareApplication().getId());
+		LoanApplication application = applicationService.getLoanById(prepareApplication().getId());
 	
 		assertThat(application).isNotNull();
 		assertThat(application.getId()).isEqualTo(prepareApplication().getId());
@@ -88,16 +88,11 @@ public class ApplicationServiceTest {
 	@Test 
 	public void should_throw_kredinbizdeException_whenApplicationNotFound() {
 		
-		Throwable throwable = catchThrowable(() -> applicationService.getById(prepareApplication().getId()));
+		Throwable throwable = catchThrowable(() -> applicationService.getLoanById(prepareApplication().getId()));
 		assertThat(throwable).isInstanceOf(KredinbizdeException.class);
         assertThat(throwable.getMessage()).isEqualTo(ExceptionMessages.APPLICATON_NOT_FOUND);
 	}
-	/*public void should_return_by_user_email_successfully() {
-		
-		Mockito.when(applicationRepository.getByEmail(prepareUser().getEmail())).thenReturn(prepareUser());
-		Application application = applicationService.getByEmail("test@gmail.com");
-	}
-	*/
+
 	private LoanApplication prepareApplication() {
 		
 		LoanApplication app = new LoanApplication();

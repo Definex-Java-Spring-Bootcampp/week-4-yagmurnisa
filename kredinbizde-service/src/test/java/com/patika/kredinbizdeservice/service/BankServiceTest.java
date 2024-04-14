@@ -28,12 +28,6 @@ public class BankServiceTest {
 	@Mock
 	private BankRepository bankRepository;
 
-	/*@Test
-	/public void should_get_all_banks_successfully() {
-		//given
-		Mockito.when(bankRepository.findAll()).thenReturn(prepareBanks());
-	}*/
-	
 	@Test
 	public void should_get_bank_by_id_successfully() {
 		//given

@@ -24,24 +24,13 @@ import com.patika.kredinbizdeservice.repository.LoanRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class LoanServiceTest {
-/*	
+	
 	@InjectMocks
     private	LoanService loanService;
 
 	@Mock
 	private LoanRepository loanRepository;
 
-/*	@Test
-	public void should_get_all_loans_successfully() {
-		//given
-		Mockito.when(loanRepository.findAll()).thenReturn(prepareLoans());
-	}
-	
-	@Test
-	public void should_get_loans_by_bank_successfully() {
-		//given
-		Mockito.when(loanRepository.findByBankName(prepareLoan().getBank().getName())).thenReturn(prepareLoans());
-	}
 	
 	@Test
 	public void should_get_loan_by_id_successfully() {
@@ -79,6 +68,6 @@ public class LoanServiceTest {
 		bank.setName("test bank");
 		loan.setBank(bank);
 		return loan;
-	}*/
+	}
 }
 

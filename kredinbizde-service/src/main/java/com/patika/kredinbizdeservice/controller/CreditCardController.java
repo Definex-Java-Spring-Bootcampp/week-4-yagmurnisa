@@ -19,9 +19,9 @@ public class CreditCardController {
 
 	private final CreditCardService creditCardService;
 		
-	@GetMapping("/bank/{bankName}")
-	public List<CreditCard> getLoansByBank(@PathVariable String bankName) {
-		return creditCardService.getCardsByBank(bankName);
+	@GetMapping("/bank/{bankId}")
+	public List<CreditCard> getLoansByBank(@PathVariable Long bankId) {
+		return creditCardService.getCardsByBank(bankId);
 	}
 	@GetMapping
 	public List<CreditCard> getAllLoans() {

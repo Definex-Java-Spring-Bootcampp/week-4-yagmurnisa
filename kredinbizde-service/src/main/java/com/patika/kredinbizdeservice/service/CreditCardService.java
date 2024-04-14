@@ -19,8 +19,8 @@ public class CreditCardService {
 	
 	private final CreditCardRepository creditCardRepository;
 	
-	public List<CreditCard> getCardsByBank(String bankName) {
-		return creditCardRepository.findByBankName(bankName);
+	public List<CreditCard> getCardsByBank(Long bankId) {
+		return creditCardRepository.findByBankId(bankId);
 	}
 
 	public List<CreditCard> getAllCards() {
@@ -29,7 +29,7 @@ public class CreditCardService {
 	
 	public CreditCard getCardById(Long id) {
 		Optional<CreditCard> foundCard = creditCardRepository.findById(id);
-		CreditCard card = foundCard.orElseThrow(() -> new KredinbizdeException(ExceptionMessages.USER_NOT_FOUND));
+		CreditCard card = foundCard.orElseThrow(() -> new KredinbizdeException(ExceptionMessages.CARD_NOT_FOUND));
 		return card;
 	}
 }

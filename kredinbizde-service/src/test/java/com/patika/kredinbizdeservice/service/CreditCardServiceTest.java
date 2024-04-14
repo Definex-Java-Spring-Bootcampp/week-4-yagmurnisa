@@ -29,18 +29,7 @@ public class CreditCardServiceTest {
 	@Mock
 	private CreditCardRepository creditCardRepository;
 
-/*	@Test
-	public void should_get_all_cards_successfully() {
-		//given
-		Mockito.when(creditCardRepository.findAll()).thenReturn(prepareCards());
-	}
-	
-	@Test
-	public void should_get_cards_by_bank_successfully() {
-		//given
-		Mockito.when(creditCardRepository.findByBankName(prepareCard().getBank().getName())).thenReturn(prepareCards());
-	}
-	*/
+
 	@Test
 	public void should_get_card_by_id_successfully() {
 		//given

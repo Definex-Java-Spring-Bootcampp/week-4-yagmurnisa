@@ -24,12 +24,12 @@ public class BankController {
 		return bankService.getAll();
 	}
 	
-	@GetMapping("/bank/{name}")
+	@GetMapping("/name/{name}")
 	public Bank getByName(@PathVariable String name) {
 		return bankService.getByName(name);
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/id/{id}")
 	public Bank getById(@PathVariable Long id) {
 		return bankService.getById(id);
 	}

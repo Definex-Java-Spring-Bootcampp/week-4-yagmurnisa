@@ -19,9 +19,9 @@ public class LoanController {
 
 	private final LoanService loanService;
 	
-	@GetMapping("/bank/{bankName}")
-	public List<Loan> getLoansByBank(@PathVariable String bankName) {
-		return loanService.getLoansByBank(bankName);
+	@GetMapping("/bank/{bankId}")
+	public List<Loan> getLoansByBank(@PathVariable Long bankId) {
+		return loanService.getLoansByBank(bankId);
 	}
 	@GetMapping
 	public List<Loan> getAllLoans() {

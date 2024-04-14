@@ -19,8 +19,8 @@ public class LoanService {
 	
 	private final LoanRepository loanRepository;
 
-	public List<Loan> getLoansByBank(String bankName) {
-		return loanRepository.findByBankName(bankName);
+	public List<Loan> getLoansByBank(Long bankId) {
+		return loanRepository.findByBankId(bankId);
 	}
 
 	public List<Loan> getAllLoans() {
@@ -29,7 +29,7 @@ public class LoanService {
 	
 	public Loan getLoanById(Long id) {
 		Optional<Loan> foundLoan = loanRepository.findById(id);
-        Loan loan = foundLoan.orElseThrow(() -> new KredinbizdeException(ExceptionMessages.USER_NOT_FOUND));
+        Loan loan = foundLoan.orElseThrow(() -> new KredinbizdeException(ExceptionMessages.LOAN_NOT_FOUND));
 		return loan;
 	}
 }

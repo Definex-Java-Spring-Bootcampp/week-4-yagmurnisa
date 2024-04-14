@@ -12,7 +12,7 @@ import com.patika.kredinbizdeservice.exceptions.KredinbizdeException;
 import com.patika.kredinbizdeservice.model.LoanApplication;
 import com.patika.kredinbizdeservice.model.CardApplication;
 import com.patika.kredinbizdeservice.model.User;
-import com.patika.kredinbizdeservice.repository.ApplicationRepository;
+import com.patika.kredinbizdeservice.repository.LoanApplicationRepository;
 import com.patika.kredinbizdeservice.repository.CardApplicationRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -28,12 +28,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class ApplicationService {
 
-    private final ApplicationRepository applicationRepository;
+    private final LoanApplicationRepository loanApplicationRepository;
     private final CardApplicationRepository cardApplicationRepository;
     private final ApplicationConverter applicationConverter;
     private final UserService userService;
     private final AkbankServiceClient akbankServiceClient;
-    //private final GarantiServiceClient garantiServiceClient;
 
     public LoanApplication createLoanApplication(LoanApplicationRequest request) {
 
@@ -42,13 +41,13 @@ public class ApplicationService {
 
         LoanApplication application = applicationConverter.toLoanApplication(request, user);
 
-        ApplicationResponse applicationResponse = handleLoanApplication(request);
+           ApplicationResponse applicationResponse = handleLoanApplication(request);
 
         if (applicationResponse == null) {
         	throw new KredinbizdeException(ExceptionMessages.APPLICATON_CREATION_ERROR);
         }
 
-        LoanApplication savedApplication = applicationRepository.save(application);
+        LoanApplication savedApplication = loanApplicationRepository.save(application);
 
         return savedApplication;
     }
@@ -70,15 +69,10 @@ public class ApplicationService {
 
         return savedApplication;
     }
-    
-  /*  public List<Application> getApplicationsByUser(Long id) {
-    	
-    	return applicationRepository.findAllByUserId(id);
-    }*/
 
     public LoanApplication getLoanById(Long id) {
     	
-    	Optional<LoanApplication> foundApp = applicationRepository.findById(id);
+    	Optional<LoanApplication> foundApp = loanApplicationRepository.findById(id);
     	LoanApplication application = foundApp.orElseThrow(() -> new KredinbizdeException(ExceptionMessages.APPLICATON_NOT_FOUND));
     	return application;
     }
@@ -91,7 +85,7 @@ public class ApplicationService {
     }
     
     public List<LoanApplication> getLoansByUser(Long id) {
-    	List<LoanApplication> loans = applicationRepository.findByUserId(id);
+    	List<LoanApplication> loans = loanApplicationRepository.findByUserId(id);
     	return loans;
     }
     
@@ -107,9 +101,9 @@ public class ApplicationService {
     	if (bankName.equals("akbank")) {
     		applicationResponse = akbankServiceClient.createLoanApplication(prepareAkbankApplicationRequest(request));
     	}
-    	else if (bankName.equals("garanti")) {
+    /*	else if (bankName.equals("garanti")) {
     		
-    	}
+    	}*/
     	return applicationResponse;
     }
     
@@ -120,9 +114,9 @@ public class ApplicationService {
     	if (bankName.equals("akbank")) {
     		applicationResponse = akbankServiceClient.createCardApplication(prepareAkbankApplicationRequest(request));
     	}
-    	else if (bankName.equals("garanti")) {
+    	/*else if (bankName.equals("garanti")) {
     		
-    	}
+    	}*/
     	return applicationResponse;
     }
 

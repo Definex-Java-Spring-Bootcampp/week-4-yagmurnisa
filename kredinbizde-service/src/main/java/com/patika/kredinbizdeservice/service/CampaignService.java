@@ -12,7 +12,7 @@ import com.patika.kredinbizdeservice.exceptions.ExceptionMessages;
 import com.patika.kredinbizdeservice.exceptions.KredinbizdeException;
 import com.patika.kredinbizdeservice.model.Bank;
 import com.patika.kredinbizdeservice.model.Campaign;
-import com.patika.kredinbizdeservice.repository.ApplicationRepository;
+import com.patika.kredinbizdeservice.repository.LoanApplicationRepository;
 import com.patika.kredinbizdeservice.repository.CampaignRepository;
 
 import lombok.RequiredArgsConstructor;

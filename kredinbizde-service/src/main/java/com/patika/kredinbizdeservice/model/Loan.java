@@ -19,7 +19,7 @@ import lombok.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "loan_type")
 @Table(name= "loans")
-public abstract class Loan  {
+public class Loan  {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

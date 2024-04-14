@@ -31,16 +31,16 @@ public class UserService {
     private final NotificationProducer notificationProducer;
 
     //@CacheEvict(value = "users", allEntries = true)
-    @Transactional(value = Transactional.TxType.REQUIRES_NEW, rollbackOn = KredinbizdeException.class)
+  //  @Transactional(value = Transactional.TxType.REQUIRES_NEW, rollbackOn = KredinbizdeException.class)
     public User save(User user) {
         System.out.println(user.hashCode());
-        Optional<User> foundUser = userRepository.findByEmail(user.getEmail());
-        if (foundUser.get() != null) {
-        	throw new KredinbizdeException(ExceptionMessages.EMAIL_TAKEN);
-        }
         if (!user.getPassword().equals(user.getPassword2())) {
         	throw new KredinbizdeException(ExceptionMessages.PASSWORD_NOT_MATCH);
         }
+        User foundUser = userRepository.findByEmail(user.getEmail()).orElse(null);
+        if (foundUser != null) {
+        	throw new KredinbizdeException(ExceptionMessages.EMAIL_TAKEN);
+        }        
         user.setAddress(getAddress());
         user.setIsActive(true);
         User savedUser = userRepository.save(user);
@@ -72,10 +72,8 @@ public class UserService {
 
     //@Cacheable(value = "users")
     public List<User> getAll() {
-        System.out.println("userRepository: " + userRepository.hashCode());
-        List<User> foundUsers = userRepository.findAll();
+        return userRepository.findAll();
        // foundUsers.stream().map(user -> user.setPassword("null")).toList();
-        return foundUsers;
     }
 
   //  @Cacheable(value = "users", key = "#email")
@@ -83,7 +81,6 @@ public class UserService {
         log.info("user db'den alındı.");
         Optional<User> foundUser = userRepository.findByEmail(email);   
         User user = foundUser.orElseThrow(() -> new KredinbizdeException(ExceptionMessages.USER_NOT_FOUND));
-        user.setPassword("");
         return user;
     }
 
@@ -107,7 +104,8 @@ public class UserService {
     	
     	Optional<User> foundUser = userRepository.findById(userId);
     	User user = foundUser.orElseThrow(() -> new KredinbizdeException(ExceptionMessages.USER_NOT_FOUND));
-        user.setPassword("");
-        return user;
+    	//UserDtoResponse userDto = new UserDtoResponse(foundUser.getId(),foundUser.getName(), foundUser.getSurname(), foundUser.getBirthDate(), foundUser.getEmail(),foundUser.getPhoneNumber(), foundUser.getAddress());
+       // return userDto;
+    	return user;
     }
 }

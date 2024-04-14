@@ -46,7 +46,7 @@ public class User extends Audit implements Serializable {
     @Column(name = UserEntityColumnConstants.IS_ACTIVE, unique = false, nullable = true)
     private Boolean isActive;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = UserEntityColumnConstants.ADDRESS, unique = false,  nullable = true)
     private Address address;
     
